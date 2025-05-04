@@ -18,3 +18,23 @@ html, body {
   display: flex;     /* Use flexbox for layout */
   flex-direction: column; /* Stack children vertically (Navbar, main content, Footer) */
 }
+
+/* --- ADD STYLES FOR FLICKR LINK --- */
+.flickr-link {
+  font-size: 0.95rem; /* Slightly smaller text */
+  color: #555; /* Grey text color */
+  margin-bottom: 1.5rem; /* Add some space below the link */
+  text-align: center; /* Center align the text */
+}
+
+.flickr-link a {
+  color: #0063dc; /* Flickr blue color */
+  text-decoration: none; /* Remove underline */
+  font-weight: 500;
+  transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+
+.flickr-link a:hover {
+  color: #ff0084; /* Flickr pink color on hover */
+  text-decoration: underline; /* Add underline on hover */
+}

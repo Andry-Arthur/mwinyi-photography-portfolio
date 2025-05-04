@@ -1,0 +1,48 @@
+/* client/src/pages/PortfolioPage.css */
+
+/* Styles for the main gallery container */
+.photo-gallery {
+    display: grid;
+    /* Creates responsive columns:
+       - auto-fit: Adjust number of columns based on container width.
+       - minmax(250px, 1fr): Each column will be at least 250px wide,
+         but can grow equally (1fr) to fill available space. */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem; /* Sets the space between grid items (photos) */
+    margin-top: 1.5rem; /* Adds some space below the "Portfolio" heading */
+  }
+  
+  /* Styles for each individual photo container */
+  .photo-item {
+    overflow: hidden; /* Hides any part of the image that might overflow due to transformations (like hover zoom) */
+    border-radius: 8px; /* Optional: Gives the photo container rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow for depth */
+    background-color: #eee; /* Optional: Light background while image loads */
+  }
+  
+  /* Styles for the image itself */
+  .photo-item img {
+    display: block; /* Removes extra space sometimes added below inline images */
+    width: 100%; /* Makes the image fill the width of its container (.photo-item) */
+    height: auto; /* Allows the height to adjust automatically to maintain aspect ratio */
+    aspect-ratio: 1 / 1; /* Forces a square aspect ratio. Adjust as needed (e.g., 4 / 3, 16 / 9) */
+    object-fit: cover; /* Scales the image to maintain aspect ratio while filling the container. Crops if necessary. */
+    transition: transform 0.3s ease; /* Adds a smooth transition effect for hover */
+  }
+  
+  /* Styles for the image on hover */
+  .photo-item img:hover {
+    transform: scale(1.05); /* Slightly enlarges the image when the mouse hovers over it */
+  }
+  
+  /* Optional: Add styles for title/description if you uncomment them in the JSX */
+  /*
+  .photo-item p {
+    padding: 0.5rem;
+    text-align: center;
+    font-size: 0.9rem;
+    background-color: #f9f9f9;
+    margin-top: -5px; // Example adjustment if needed
+  }
+  */
+  

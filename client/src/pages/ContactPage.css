@@ -1,0 +1,179 @@
+/* client/src/pages/ContactPage.css */
+
+/* Styles for the main container of the contact page */
+.contact-page-container {
+  max-width: 600px; /* Limit form width */
+  margin: 2rem auto; /* Center the container with some margin */
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff; /* Optional background */
+}
+
+/* Styles for the main heading */
+.contact-page-container h1 {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+/* Styles for the introductory paragraph */
+.contact-page-container p:first-of-type { /* Target only the first paragraph */
+  text-align: center;
+  margin-bottom: 1rem; /* Reduced margin */
+  color: #555;
+}
+
+/* --- Styles for Social Links Section --- */
+.social-links-section {
+  text-align: center; /* Center the links */
+  margin-bottom: 2rem; /* Space below the links before the form */
+  padding-top: 0.5rem; /* Add a little space above */
+}
+
+.social-link {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 0.75rem; /* Increased space between social links slightly */
+}
+
+/* Style the anchor tag itself to align icon and text */
+.social-link-anchor {
+  display: inline-flex; /* Use flexbox for alignment */
+  align-items: center;  /* Vertically center icon and text */
+  gap: 0.4rem;          /* Add space between icon and text */
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+
+/* Style the icon */
+.social-icon {
+  /* stroke-width: 2; */ /* Optional: adjust icon line thickness */
+  flex-shrink: 0; /* Prevent icon from shrinking */
+}
+
+/* Flickr specific link style */
+.flickr-link .social-link-anchor {
+  color: #0063dc; /* Flickr blue */
+}
+.flickr-link .social-link-anchor:hover {
+  color: #ff0084; /* Flickr pink */
+  text-decoration: underline;
+}
+/* Flickr doesn't have an icon in this version, so no icon hover needed */
+
+
+/* Instagram specific link style */
+.instagram-link .social-link-anchor {
+  /* Apply gradient to span, not anchor, to avoid affecting icon color */
+}
+
+.instagram-link .social-link-anchor span {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent; /* Make text transparent to show gradient */
+}
+
+.instagram-link .social-link-anchor .social-icon {
+    color: #E1306C; /* Give icon a base Instagram color */
+}
+
+.instagram-link .social-link-anchor:hover span {
+  text-decoration: underline;
+  /* Gradient doesn't easily change on hover, underline is sufficient */
+}
+.instagram-link .social-link-anchor:hover .social-icon {
+    color: #c13584; /* Darker shade on hover */
+}
+/* --- End Social Links Section Styles --- */
+
+
+/* Styles for each group of label + input */
+.contact-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+/* Styles for the labels */
+.contact-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #333;
+}
+
+/* Common styles for text inputs and the textarea */
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease-in-out;
+}
+
+/* Styles for inputs when they are focused (clicked into) */
+.contact-form input[type="text"]:focus,
+.contact-form input[type="email"]:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+/* Specific styles for the textarea */
+.contact-form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Styles for the submit button */
+.submit-button {
+  display: block;
+  width: 100%;
+  padding: 0.9rem 1.5rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+/* Styles for the submit button on hover (when not disabled) */
+.submit-button:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+/* Styles for the submit button when it's disabled */
+.submit-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Styles for the status message container (shows success/error) */
+.status-message {
+  margin-top: 1.5rem;
+  padding: 0.8rem 1rem;
+  border-radius: 4px;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* Specific styles for a success message */
+.status-message.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+/* Specific styles for an error message */
+.status-message.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}

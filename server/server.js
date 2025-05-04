@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const connectDB = require('./config/db');
 const photoRoutes = require('./routes/photoRoutes'); // <<< ADD THIS LINE: Import photo routes
+const contactRoutes = require('./routes/contactRoutes'); // <<< ADD THIS LINE: Import contact routes
 
 // Load environment variables from .env file
 dotenv.config();
@@ -24,14 +25,14 @@ app.get('/api', (req, res) => {
   res.json({ message: 'Welcome to the Photography Portfolio API!' });
 });
 
-// --- Mount API Routes ---                  <<< --- SECTION UPDATED ---
-app.use('/api/photos', photoRoutes);        // <<< ADD THIS LINE: Mount photo routes under /api/photos
+// --- Mount API Routes ---                 
+app.use('/api/photos', photoRoutes);       
+app.use('/api/contact', contactRoutes);
 // TODO: Add routes for bookings, contact later
 // e.g., const bookingRoutes = require('./routes/bookingRoutes');
 // app.use('/api/bookings', bookingRoutes);
 // e.g., const contactRoutes = require('./routes/contactRoutes');
-// app.use('/api/contact', contactRoutes);
-// --- End of API Routes ---                 <<< --- SECTION UPDATED ---
+// --- End of API Routes ---  
 
 
 // --- Define Port ---
