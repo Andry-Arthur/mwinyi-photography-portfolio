@@ -2,9 +2,14 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const connectDB = require('./config/db');
+const photoRoutes = require('./routes/photoRoutes'); // <<< ADD THIS LINE: Import photo routes
 
 // Load environment variables from .env file
 dotenv.config();
+
+// --- Connect to Database ---
+connectDB();
 
 // Create an Express application instance
 const app = express();
@@ -19,9 +24,14 @@ app.get('/api', (req, res) => {
   res.json({ message: 'Welcome to the Photography Portfolio API!' });
 });
 
-// TODO: Add routes for photos, bookings, contact later
-// e.g., const photoRoutes = require('./routes/photoRoutes');
-// app.use('/api/photos', photoRoutes);
+// --- Mount API Routes ---                  <<< --- SECTION UPDATED ---
+app.use('/api/photos', photoRoutes);        // <<< ADD THIS LINE: Mount photo routes under /api/photos
+// TODO: Add routes for bookings, contact later
+// e.g., const bookingRoutes = require('./routes/bookingRoutes');
+// app.use('/api/bookings', bookingRoutes);
+// e.g., const contactRoutes = require('./routes/contactRoutes');
+// app.use('/api/contact', contactRoutes);
+// --- End of API Routes ---                 <<< --- SECTION UPDATED ---
 
 
 // --- Define Port ---
@@ -30,5 +40,9 @@ const PORT = process.env.PORT || 5000; // Use port from .env or default to 5000
 // --- Start the Server ---
 app.listen(PORT, () => {
   console.log(`[Server] Backend server is running on port ${PORT}`);
-  // TODO: Add database connection logic here later
+  // The database connection attempt happens before the server starts listening.
+  // The connectDB function logs success or failure itself.
 });
+
+// You might want to export 'app' if you plan on using it for testing with supertest
+// module.exports = app; // Optional: Uncomment for testing
