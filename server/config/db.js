@@ -11,8 +11,10 @@ const connectDB = async () => {
     const mongoURI = process.env.MONGODB_URI;
 
     if (!mongoURI) {
-      console.error('Error: MONGODB_URI is not defined in .env file');
-      process.exit(1); // Exit process with failure
+      const errorMsg = 'Error: MONGODB_URI is not defined in environment variables';
+      console.error(`[Database] ${errorMsg}`);
+      console.error('[Database] Please set MONGODB_URI in your DigitalOcean environment variables');
+      throw new Error(errorMsg); // Throw error instead of exiting process
     }
 
     // Attempt to connect to MongoDB
@@ -21,7 +23,7 @@ const connectDB = async () => {
     console.log(`[Database] MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
     console.error(`[Database] Error connecting to MongoDB: ${error.message}`);
-    process.exit(1); // Exit process with failure
+    throw error; // Throw error instead of exiting process
   }
 };
 
