@@ -37,7 +37,3 @@ export const getAllPhotos = async () => {
       throw error;
     }
   };
-  
-  // Export the function to be used in components
-  export { getAllPhotos };
-  
