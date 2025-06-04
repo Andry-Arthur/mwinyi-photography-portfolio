@@ -18,12 +18,8 @@ const getPhotos = async (req, res) => {
   try {
     // Check if database is connected
     if (!mongoose.connection.readyState) {
-      console.log('[Photos] Database not connected, returning mock data');
-      return res.status(200).json({
-        message: 'Database not connected. Please configure MONGODB_URI environment variable.',
-        mockData: true,
-        photos: []
-      });
+      console.log('[Photos] Database not connected, returning empty array');
+      return res.status(200).json([]); // Return empty array instead of object
     }
 
     // Get the total number of photos
@@ -111,12 +107,8 @@ const getPhotos = async (req, res) => {
     
     // Check if it's a database connection error
     if (error.message.includes('MONGODB_URI') || !mongoose.connection.readyState) {
-      return res.status(200).json({
-        message: 'Database not connected. Please configure MONGODB_URI environment variable.',
-        error: error.message,
-        mockData: true,
-        photos: []
-      });
+      console.log('[Photos] Database connection error, returning empty array');
+      return res.status(200).json([]); // Return empty array instead of object
     }
     
     res.status(500).json({ 
