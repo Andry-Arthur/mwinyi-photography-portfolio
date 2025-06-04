@@ -1,19 +1,27 @@
 // server/controllers/contactController.js
-const sgMail = require('@sendgrid/mail');
+const nodemailer = require('nodemailer');
 const dotenv = require('dotenv');
 
-// Load env vars if not already loaded (good practice in controllers)
+// Load env vars if not already loaded
 dotenv.config();
 
-// Set SendGrid API Key
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+// Create transporter using Gmail
+const transporter = nodemailer.createTransporter({
+    service: 'gmail',
+    auth: {
+        user: process.env.EMAIL_USER, // Your Gmail address
+        pass: process.env.EMAIL_PASS  // Your Gmail app password
+    }
+});
 
-// Ensure required environment variables are set
-if (!process.env.SENDER_EMAIL_ADDRESS || !process.env.RECIPIENT_EMAIL_ADDRESS || !process.env.SENDGRID_API_KEY) {
-    console.error("FATAL ERROR: Email environment variables (SENDER_EMAIL_ADDRESS, RECIPIENT_EMAIL_ADDRESS, SENDGRID_API_KEY) are missing.");
-    // Optionally exit or handle this more gracefully depending on application needs
-    // process.exit(1);
-}
+// Verify transporter configuration
+transporter.verify((error, success) => {
+    if (error) {
+        console.error('Email transporter verification failed:', error);
+    } else {
+        console.log('Email transporter is ready to send emails');
+    }
+});
 
 /**
  * @desc    Handle contact form submission and send email
@@ -29,40 +37,61 @@ const sendContactMessage = async (req, res) => {
         return res.status(400).json({ message: 'All fields are required.' });
     }
 
-    // Prepare email content
-    const emailContent = `
-        <h1>New Contact Message from Portfolio</h1>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Subject:</strong> ${subject}</p>
-        <hr>
-        <p><strong>Message:</strong></p>
-        <p>${message.replace(/\n/g, '<br>')}</p> `;
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        return res.status(400).json({ message: 'Please provide a valid email address.' });
+    }
 
-    // Construct the email message object for SendGrid
-    const msg = {
-        to: process.env.RECIPIENT_EMAIL_ADDRESS, // Your friend's email address from .env
-        from: process.env.SENDER_EMAIL_ADDRESS, // Your verified sender email address from .env
-        subject: `Portfolio Contact: ${subject}`, // Prepend subject for clarity
+    // Prepare email content
+    const htmlContent = `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <h2 style="color: #333; border-bottom: 2px solid #007bff; padding-bottom: 10px;">
+                New Contact Message from Portfolio
+            </h2>
+            <div style="background-color: #f8f9fa; padding: 20px; border-radius: 5px; margin: 20px 0;">
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Subject:</strong> ${subject}</p>
+            </div>
+            <div style="margin: 20px 0;">
+                <h3 style="color: #333;">Message:</h3>
+                <div style="background-color: #ffffff; padding: 15px; border-left: 4px solid #007bff; border-radius: 3px;">
+                    ${message.replace(/\n/g, '<br>')}
+                </div>
+            </div>
+            <hr style="margin: 30px 0; border: none; border-top: 1px solid #eee;">
+            <p style="color: #666; font-size: 12px;">
+                This message was sent from your photography portfolio contact form.
+            </p>
+        </div>
+    `;
+
+    // Construct the email message object
+    const mailOptions = {
+        from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`,
+        to: process.env.EMAIL_USER, // Send to yourself
+        replyTo: email, // Set reply-to as the sender's email
+        subject: `Portfolio Contact: ${subject}`,
         text: `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\n\nMessage:\n${message}`, // Plain text version
-        html: emailContent, // HTML version
-        replyTo: email, // Set the reply-to field to the sender's email
+        html: htmlContent // HTML version
     };
 
     try {
-        // Attempt to send the email using SendGrid
-        await sgMail.send(msg);
-        console.log('Contact email sent successfully via SendGrid');
-        res.status(200).json({ message: 'Message sent successfully!' }); // Send success response to frontend
+        // Attempt to send the email using Nodemailer
+        const info = await transporter.sendMail(mailOptions);
+        console.log('Contact email sent successfully:', info.messageId);
+        res.status(200).json({ message: 'Message sent successfully!' });
     } catch (error) {
-        console.error('Error sending contact email via SendGrid:', error);
-
-        // Log more details if available (SendGrid often puts details in error.response.body)
-        if (error.response) {
-            console.error('SendGrid Error Body:', error.response.body);
+        console.error('Error sending contact email:', error);
+        
+        // More specific error handling
+        if (error.code === 'EAUTH') {
+            console.error('Email authentication failed. Check EMAIL_USER and EMAIL_PASS.');
+        } else if (error.code === 'ENOTFOUND') {
+            console.error('Network error. Check internet connection.');
         }
-
-        // Send error response to frontend
+        
         res.status(500).json({ message: 'Failed to send message. Please try again later.' });
     }
 };
