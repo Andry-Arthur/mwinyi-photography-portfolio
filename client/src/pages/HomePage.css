@@ -1,0 +1,283 @@
+/* client/src/pages/HomePage.css */
+
+.home-page {
+    /* Styles for the overall page if needed */
+  }
+  
+  /* --- Hero Section Styles --- */
+  .hero-section {
+    display: flex;
+    align-items: center; /* Vertically center content */
+    justify-content: center; /* Horizontally center content */
+    min-height: calc(100vh - 80px); /* Full viewport height minus approx navbar height - Adjust 80px based on actual navbar height */
+    padding: 2rem;
+    text-align: center;
+    color: white; /* Text color for contrast against background */
+    position: relative; /* Needed for the overlay */
+    overflow: hidden; /* Hide overlay overflow */
+  
+    /* --- BACKGROUND IMAGE --- */
+    /* !!! REPLACE WITH A REAL CLOUDINARY URL !!! */
+    /* Example: background-image: url('https://res.cloudinary.com/your_cloud_name/image/upload/c_fill,g_auto,w_1600,q_auto/your_image_public_id.jpg'); */
+    background-image: url('https://picsum.photos/1600/900'); /* Placeholder - REPLACE */
+    background-size: cover; /* Cover the entire section */
+    background-position: center center; /* Center the image */
+    background-repeat: no-repeat;
+  }
+  
+  /* Add a semi-transparent overlay for better text readability */
+  .hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Dark overlay - adjust opacity (0.5) as needed */
+    z-index: 1; /* Place overlay below content */
+  }
+  
+  /* Ensure content is above the overlay */
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px; /* Limit content width */
+  }
+  
+  .hero-headline {
+    font-size: 3rem; /* Large headline */
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add shadow for readability */
+  }
+  
+  .hero-tagline {
+    font-size: 1.25rem;
+    font-weight: 300;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Add shadow for readability */
+  }
+  
+  .hero-cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem; /* Space between buttons */
+    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+  }
+  
+  .cta-button {
+    padding: 0.8rem 2rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border: 2px solid transparent; /* Base border */
+    cursor: pointer;
+  }
+  
+  .cta-button.primary {
+    background-color: #007bff; /* Example primary color */
+    color: white;
+    border-color: #007bff;
+  }
+  
+  .cta-button.primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+    transform: translateY(-2px);
+  }
+  
+  .cta-button.secondary {
+    background-color: transparent;
+    color: white;
+    border-color: white;
+  }
+  
+  .cta-button.secondary:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Slight background on hover */
+    transform: translateY(-2px);
+  }
+  
+  /* --- Featured Photos Section --- */
+  .featured-photos-section {
+    padding: 4rem 2rem;
+    text-align: center;
+    background-color: #f8f9fa; /* Light background */
+  }
+  
+  .featured-photos-section h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: #333;
+  }
+  
+  .featured-photos-container {
+    position: relative; /* Needed for absolute positioning of images */
+    width: 100%;
+    max-width: 700px; /* Max width of the photo display area */
+    height: 450px; /* Fixed height for the photo display area */
+    margin: 0 auto; /* Center the container */
+    overflow: hidden; /* Hide images that are not active */
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    background-color: #e9ecef; /* Placeholder background */
+  }
+  
+  .featured-photo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Cover the container */
+    opacity: 0; /* Hidden by default */
+    transition: opacity 1s ease-in-out; /* Fade transition */
+    border-radius: 8px; /* Match container */
+  }
+  
+  .featured-photo.active {
+    opacity: 1; /* Make the current photo visible */
+  }
+  
+  .view-all-cta {
+      margin-top: 2rem; /* Space above the 'View Full Portfolio' link */
+  }
+  
+  /* Simple button style for links like 'View Full Portfolio' and 'Get in Touch' */
+  .cta-button-simple {
+      display: inline-block;
+      padding: 0.6rem 1.5rem;
+      border: 1px solid #007bff;
+      color: #007bff;
+      background-color: transparent;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .cta-button-simple:hover {
+      background-color: #007bff;
+      color: white;
+  }
+  
+  
+  /* --- Services Overview Section --- */
+  .services-overview {
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+  
+  .services-overview h2 {
+    font-size: 2rem;
+    margin-bottom: 2.5rem;
+    color: #333;
+  }
+  
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Responsive grid */
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto 2rem auto; /* Center grid and add space below */
+  }
+  
+  .service-item {
+    padding: 1.5rem;
+    border: 1px solid #e7e7e7;
+    border-radius: 8px;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  
+  .service-item:hover {
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transform: translateY(-5px); /* Slight lift effect on hover */
+  }
+  
+  .service-icon-img {
+      width: 50px; /* Adjust size as needed */
+      height: 50px;
+      margin-bottom: 1rem;
+      border-radius: 50%; /* Make placeholder circular */
+      object-fit: cover;
+  }
+  
+  /* Optional styling if using Lucide icons */
+  /*
+  .service-icon {
+    color: #007bff; // Example color
+    margin-bottom: 1rem;
+  }
+  */
+  
+  .service-item h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    color: #333;
+  }
+  
+  .service-item p {
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.6;
+  }
+  
+  .contact-cta {
+      margin-top: 2.5rem; /* Space above the 'Get in Touch' link */
+  }
+  
+  
+  /* --- About Brief Section --- */
+  .about-brief {
+    padding: 4rem 2rem;
+    text-align: center;
+    background-color: #f8f9fa; /* Light background */
+  }
+  
+  .about-brief h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+  }
+  
+  .about-brief p {
+    max-width: 700px; /* Limit paragraph width */
+    margin: 0 auto; /* Center paragraph */
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #555;
+  }
+  
+  /* Optional photographer photo styles */
+  /*
+  .photographer-photo {
+    margin-top: 2rem;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  */
+  
+  
+  /* --- Responsive adjustments --- */
+  @media (max-width: 768px) {
+    .hero-headline { font-size: 2.5rem; }
+    .hero-tagline { font-size: 1.1rem; }
+    .hero-section { min-height: calc(100vh - 70px); } /* Adjust if navbar height changes */
+    .featured-photos-section, .services-overview, .about-brief { padding: 3rem 1rem; }
+    .featured-photos-container { height: 350px; } /* Adjust height */
+    .services-overview h2, .about-brief h2, .featured-photos-section h2 { font-size: 1.8rem; }
+  }
+  
+  @media (max-width: 480px) {
+    .hero-headline { font-size: 2rem; }
+    .hero-cta-buttons { flex-direction: column; align-items: center; }
+    .cta-button { width: 80%; max-width: 300px; }
+    .featured-photos-container { height: 280px; } /* Adjust height */
+  }
+  
