@@ -12,7 +12,7 @@ function BookingPage() {
         {/* Calendly inline widget embed */}
         <div 
           className="calendly-inline-widget" 
-          data-url="https://calendly.com/andry1arthur" 
+          data-url="https://calendly.com/mwinjumasalmin" 
           style={{ minWidth: '320px', height: '700px' }}
         ></div>
         <script 
