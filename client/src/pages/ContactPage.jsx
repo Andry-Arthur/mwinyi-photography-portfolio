@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import './ContactPage.css'; // We'll create this CSS file for styling
 // --- Import only the existing icons ---
 import { Instagram as InstagramIcon } from 'lucide-react'; // Removed FlickrIcon import
+import { API_BASE_URL } from '../config/api.js';
 
 function ContactPage() {
   // State for form fields
@@ -61,7 +62,7 @@ function ContactPage() {
 
     try {
       // Send data to the backend API endpoint
-      const res = await fetch('/api/contact', { // Relative path for Vite proxy
+      const res = await fetch(`${API_BASE_URL}/api/contact`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

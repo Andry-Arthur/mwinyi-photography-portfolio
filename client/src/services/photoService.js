@@ -1,5 +1,9 @@
 // client/src/services/photoService.js
 
+import { API_BASE_URL } from '../config/api.js';
+
+const API_URL = `${API_BASE_URL}/api`;
+
 /**
  * Fetches all photos from the backend API.
  * Remember: During development, Vite's proxy handles redirecting '/api/photos'
@@ -9,15 +13,15 @@
  * @returns {Promise<Array>} A promise that resolves to an array of photo objects.
  * @throws {Error} Throws an error if the network response is not ok.
  */
-const getAllPhotos = async () => {
+export const getAllPhotos = async () => {
     try {
       // Make a GET request to the backend endpoint
-      const response = await fetch('/api/photos'); // Relative path works due to Vite proxy
+      const response = await fetch(`${API_URL}/photos`);
   
       // Check if the response status code is OK (200-299)
       if (!response.ok) {
         // If not OK, throw an error with the status text
-        throw new Error(`HTTP error! Status: ${response.status} ${response.statusText}`);
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
   
       // Parse the JSON response body
