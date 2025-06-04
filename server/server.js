@@ -15,9 +15,20 @@ connectDB();
 // Create an Express application instance
 const app = express();
 
-// Middleware
-app.use(cors()); // Enable Cross-Origin Resource Sharing
-app.use(express.json()); // Enable parsing JSON request bodies
+// Updated CORS configuration
+const corsOptions = {
+  origin: [
+    'http://localhost:5173', // Development
+    'https://photo-app-frontend-jobeb.ondigitalocean.app', // Your frontend URL
+    'https://yourdomain.com' // Your custom domain (when you set it up)
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
+
+app.use(cors(corsOptions));
+app.use(express.json());
 
 // --- Define Routes ---
 // Example Root Route
@@ -26,6 +37,7 @@ app.get('/api', (req, res) => {
 });
 
 // --- Mount API Routes ---
+// Example Root Route
 app.use('/api/photos', photoRoutes);        // Mount photo routes
 app.use('/api/contact', contactRoutes);     // Mount contact routes
 // --- End of API Routes ---
