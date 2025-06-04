@@ -41,6 +41,24 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+// Admin route to import photos from Cloudinary
+app.post('/api/admin/import-photos', async (req, res) => {
+  try {
+    const { importPhotos } = require('./utils/importCloudinaryPhotos');
+    const result = await importPhotos();
+    res.status(200).json({
+      message: 'Photo import completed successfully',
+      ...result
+    });
+  } catch (error) {
+    console.error('Error importing photos:', error);
+    res.status(500).json({
+      message: 'Failed to import photos',
+      error: error.message
+    });
+  }
+});
+
 // --- Mount API Routes ---
 // Example Root Route
 app.use('/api/photos', photoRoutes);        // Mount photo routes
