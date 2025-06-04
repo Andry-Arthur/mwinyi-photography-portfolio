@@ -15,19 +15,19 @@ connectDB();
 // Create an Express application instance
 const app = express();
 
-// Updated CORS configuration
-const corsOptions = {
-  origin: [
-    'http://localhost:5173', // Development
-    'https://photo-app-frontend-jobeb.ondigitalocean.app', // Your frontend URL
-    'https://yourdomain.com' // Your custom domain (when you set it up)
-  ],
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-};
+// Explicit CORS configuration
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  
+  if (req.method === 'OPTIONS') {
+    res.sendStatus(200);
+  } else {
+    next();
+  }
+});
 
-app.use(cors(corsOptions));
 app.use(express.json());
 
 // --- Define Routes ---
