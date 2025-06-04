@@ -16,6 +16,16 @@ const getPhotos = async (req, res) => {
   const poolSizePerSection = 50;
 
   try {
+    // Check if database is connected
+    if (!mongoose.connection.readyState) {
+      console.log('[Photos] Database not connected, returning mock data');
+      return res.status(200).json({
+        message: 'Database not connected. Please configure MONGODB_URI environment variable.',
+        mockData: true,
+        photos: []
+      });
+    }
+
     // Get the total number of photos
     const totalCount = await Photo.countDocuments();
 
@@ -98,7 +108,21 @@ const getPhotos = async (req, res) => {
 
   } catch (error) {
     console.error(`Error fetching randomized curated photos: ${error.message}`);
-    res.status(500).json({ message: 'Server Error: Could not fetch photos' });
+    
+    // Check if it's a database connection error
+    if (error.message.includes('MONGODB_URI') || !mongoose.connection.readyState) {
+      return res.status(200).json({
+        message: 'Database not connected. Please configure MONGODB_URI environment variable.',
+        error: error.message,
+        mockData: true,
+        photos: []
+      });
+    }
+    
+    res.status(500).json({ 
+      message: 'Server Error: Could not fetch photos',
+      error: error.message 
+    });
   }
 };
 
