@@ -9,8 +9,8 @@
     display: flex;
     align-items: center; /* Vertically center content */
     justify-content: center; /* Horizontally center content */
-    min-height: calc(100vh - 80px); /* Full viewport height minus approx navbar height - Adjust 80px based on actual navbar height */
-    padding: 2rem;
+    min-height: calc(100vh - 80px); /* Full viewport height minus approx navbar height */
+    padding: 1rem;
     text-align: center;
     color: white; /* Text color for contrast against background */
     position: relative; /* Needed for the overlay */
@@ -23,6 +23,7 @@
     background-size: cover; /* Cover the entire section */
     background-position: center center; /* Center the image */
     background-repeat: no-repeat;
+    background-attachment: scroll; /* Better for mobile performance */
   }
   
   /* Add a semi-transparent overlay for better text readability */
@@ -33,7 +34,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); /* Dark overlay - adjust opacity (0.5) as needed */
+    background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
     z-index: 1; /* Place overlay below content */
   }
   
@@ -41,45 +42,51 @@
   .hero-content {
     position: relative;
     z-index: 2;
-    max-width: 800px; /* Limit content width */
+    max-width: 90%; /* More flexible width for mobile */
   }
   
   .hero-headline {
-    font-size: 3rem; /* Large headline */
+    font-size: 2rem; /* Mobile-first sizing */
     font-weight: 700;
     margin-bottom: 1rem;
     line-height: 1.2;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add shadow for readability */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   }
   
   .hero-tagline {
-    font-size: 1.25rem;
+    font-size: 1rem;
     font-weight: 300;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     line-height: 1.6;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Add shadow for readability */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
   }
   
   .hero-cta-buttons {
     display: flex;
     justify-content: center;
-    gap: 1rem; /* Space between buttons */
+    gap: 1rem;
     flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
   }
   
   .cta-button {
-    padding: 0.8rem 2rem;
+    padding: 0.75rem 1.5rem;
     border-radius: 5px;
     text-decoration: none;
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 500;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    border: 2px solid transparent; /* Base border */
+    border: 2px solid transparent;
     cursor: pointer;
+    text-align: center;
+    min-width: 140px; /* Ensure buttons are touch-friendly */
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .cta-button.primary {
-    background-color: #007bff; /* Example primary color */
+    background-color: #007bff;
     color: white;
     border-color: #007bff;
   }
@@ -97,33 +104,33 @@
   }
   
   .cta-button.secondary:hover {
-    background-color: rgba(255, 255, 255, 0.1); /* Slight background on hover */
+    background-color: rgba(255, 255, 255, 0.1);
     transform: translateY(-2px);
   }
   
   /* --- Featured Photos Section --- */
   .featured-photos-section {
-    padding: 4rem 2rem;
+    padding: 2rem 1rem;
     text-align: center;
-    background-color: #f8f9fa; /* Light background */
+    background-color: #f8f9fa;
   }
   
   .featured-photos-section h2 {
-    font-size: 2rem;
-    margin-bottom: 2rem;
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
     color: #333;
   }
   
   .featured-photos-container {
-    position: relative; /* Needed for absolute positioning of images */
+    position: relative;
     width: 100%;
-    max-width: 700px; /* Max width of the photo display area */
-    height: 450px; /* Fixed height for the photo display area */
-    margin: 0 auto; /* Center the container */
-    overflow: hidden; /* Hide images that are not active */
+    max-width: 600px; /* Reduced max width for mobile */
+    height: 300px; /* Smaller height for mobile */
+    margin: 0 auto;
+    overflow: hidden;
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    background-color: #e9ecef; /* Placeholder background */
+    background-color: #e9ecef;
   }
   
   .featured-photo {
@@ -132,57 +139,60 @@
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Cover the container */
-    opacity: 0; /* Hidden by default */
-    transition: opacity 1s ease-in-out; /* Fade transition */
-    border-radius: 8px; /* Match container */
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    border-radius: 8px;
   }
   
   .featured-photo.active {
-    opacity: 1; /* Make the current photo visible */
+    opacity: 1;
   }
   
   .view-all-cta {
-      margin-top: 2rem; /* Space above the 'View Full Portfolio' link */
+    margin-top: 1.5rem;
   }
   
-  /* Simple button style for links like 'View Full Portfolio' and 'Get in Touch' */
+  /* Simple button style for links */
   .cta-button-simple {
-      display: inline-block;
-      padding: 0.6rem 1.5rem;
-      border: 1px solid #007bff;
-      color: #007bff;
-      background-color: transparent;
-      border-radius: 5px;
-      text-decoration: none;
-      font-weight: 500;
-      transition: background-color 0.3s ease, color 0.3s ease;
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    border: 1px solid #007bff;
+    color: #007bff;
+    background-color: transparent;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    min-height: 44px;
+    min-width: 120px;
+    text-align: center;
   }
   
   .cta-button-simple:hover {
-      background-color: #007bff;
-      color: white;
+    background-color: #007bff;
+    color: white;
   }
   
   
   /* --- Services Overview Section --- */
   .services-overview {
-    padding: 4rem 2rem;
+    padding: 2rem 1rem;
     text-align: center;
   }
   
   .services-overview h2 {
-    font-size: 2rem;
-    margin-bottom: 2.5rem;
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
     color: #333;
   }
   
   .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Responsive grid */
-    gap: 2rem;
+    grid-template-columns: 1fr; /* Single column on mobile */
+    gap: 1.5rem;
     max-width: 1000px;
-    margin: 0 auto 2rem auto; /* Center grid and add space below */
+    margin: 0 auto 2rem auto;
   }
   
   .service-item {
@@ -193,16 +203,16 @@
   }
   
   .service-item:hover {
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      transform: translateY(-5px); /* Slight lift effect on hover */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transform: translateY(-5px);
   }
   
   .service-icon-img {
-      width: 50px; /* Adjust size as needed */
-      height: 50px;
-      margin-bottom: 1rem;
-      border-radius: 50%; /* Make placeholder circular */
-      object-fit: cover;
+    width: 50px;
+    height: 50px;
+    margin-bottom: 1rem;
+    border-radius: 50%;
+    object-fit: cover;
   }
   
   /* Optional styling if using Lucide icons */
@@ -214,39 +224,39 @@
   */
   
   .service-item h3 {
-    font-size: 1.25rem;
+    font-size: 1.15rem;
     margin-bottom: 0.75rem;
     color: #333;
   }
   
   .service-item p {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     color: #555;
     line-height: 1.6;
   }
   
   .contact-cta {
-      margin-top: 2.5rem; /* Space above the 'Get in Touch' link */
+    margin-top: 2rem;
   }
   
   
   /* --- About Brief Section --- */
   .about-brief {
-    padding: 4rem 2rem;
+    padding: 2rem 1rem;
     text-align: center;
-    background-color: #f8f9fa; /* Light background */
+    background-color: #f8f9fa;
   }
   
   .about-brief h2 {
-    font-size: 2rem;
+    font-size: 1.75rem;
     margin-bottom: 1.5rem;
     color: #333;
   }
   
   .about-brief p {
-    max-width: 700px; /* Limit paragraph width */
-    margin: 0 auto; /* Center paragraph */
-    font-size: 1.1rem;
+    max-width: 90%; /* More flexible width for mobile */
+    margin: 0 auto;
+    font-size: 1rem;
     line-height: 1.7;
     color: #555;
   }
@@ -264,20 +274,100 @@
   */
   
   
-  /* --- Responsive adjustments --- */
-  @media (max-width: 768px) {
-    .hero-headline { font-size: 2.5rem; }
-    .hero-tagline { font-size: 1.1rem; }
-    .hero-section { min-height: calc(100vh - 70px); } /* Adjust if navbar height changes */
-    .featured-photos-section, .services-overview, .about-brief { padding: 3rem 1rem; }
-    .featured-photos-container { height: 350px; } /* Adjust height */
-    .services-overview h2, .about-brief h2, .featured-photos-section h2 { font-size: 1.8rem; }
+  /* --- Tablet and Desktop Breakpoints --- */
+  @media (min-width: 768px) {
+    .hero-section {
+      padding: 2rem;
+      min-height: calc(100vh - 90px);
+    }
+    
+    .hero-content {
+      max-width: 800px;
+    }
+    
+    .hero-headline {
+      font-size: 2.5rem;
+    }
+    
+    .hero-tagline {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+    }
+    
+    .cta-button {
+      padding: 0.8rem 2rem;
+      font-size: 1rem;
+    }
+    
+    .featured-photos-section,
+    .services-overview,
+    .about-brief {
+      padding: 3rem 2rem;
+    }
+    
+    .featured-photos-container {
+      max-width: 700px;
+      height: 400px;
+    }
+    
+    .services-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .featured-photos-section h2,
+    .services-overview h2,
+    .about-brief h2 {
+      font-size: 2rem;
+    }
   }
   
+  @media (min-width: 1024px) {
+    .hero-headline {
+      font-size: 3rem;
+    }
+    
+    .featured-photos-section,
+    .services-overview,
+    .about-brief {
+      padding: 4rem 2rem;
+    }
+    
+    .featured-photos-container {
+      height: 450px;
+    }
+    
+    .services-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .about-brief p {
+      max-width: 700px;
+      font-size: 1.1rem;
+    }
+  }
+  
+  /* Very small screens */
   @media (max-width: 480px) {
-    .hero-headline { font-size: 2rem; }
-    .hero-cta-buttons { flex-direction: column; align-items: center; }
-    .cta-button { width: 80%; max-width: 300px; }
-    .featured-photos-container { height: 280px; } /* Adjust height */
+    .hero-cta-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .cta-button {
+      width: 100%;
+      max-width: 280px;
+    }
+    
+    .featured-photos-container {
+      height: 250px;
+    }
+    
+    .hero-headline {
+      font-size: 1.75rem;
+    }
+    
+    .hero-tagline {
+      font-size: 0.9rem;
+    }
   }
   

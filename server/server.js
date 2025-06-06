@@ -41,6 +41,32 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+// Database status route for debugging
+app.get('/api/debug/database', (req, res) => {
+  const mongoose = require('mongoose');
+  
+  const dbStatus = {
+    connection_state: mongoose.connection.readyState,
+    connection_states: {
+      0: 'disconnected',
+      1: 'connected',
+      2: 'connecting',
+      3: 'disconnecting'
+    },
+    has_mongodb_uri: !!process.env.MONGODB_URI,
+    mongodb_uri_preview: process.env.MONGODB_URI ? process.env.MONGODB_URI.substring(0, 20) + '...' : 'Not set',
+    database_name: mongoose.connection.name || 'Not connected',
+    environment_check: {
+      node_env: process.env.NODE_ENV || 'not set',
+      has_cloudinary_cloud_name: !!process.env.CLOUDINARY_CLOUD_NAME,
+      has_cloudinary_api_key: !!process.env.CLOUDINARY_API_KEY,
+      has_cloudinary_api_secret: !!process.env.CLOUDINARY_API_SECRET
+    }
+  };
+  
+  res.status(200).json(dbStatus);
+});
+
 // Admin route to import photos from Cloudinary
 app.post('/api/admin/import-photos', async (req, res) => {
   try {

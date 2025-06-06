@@ -3,13 +3,11 @@
 /* Styles for the main gallery container */
 .photo-gallery {
     display: grid;
-    /* Creates responsive columns:
-       - auto-fit: Adjust number of columns based on container width.
-       - minmax(250px, 1fr): Each column will be at least 250px wide,
-         but can grow equally (1fr) to fill available space. */
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1rem; /* Sets the space between grid items (photos) */
-    margin-top: 1.5rem; /* Adds some space below the "Portfolio" heading */
+    /* Mobile-first: start with 1 column */
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding: 0 0.5rem; /* Add small padding on mobile */
   }
   
   /* Styles for each individual photo container */
@@ -18,6 +16,7 @@
     border-radius: 8px; /* Optional: Gives the photo container rounded corners */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow for depth */
     background-color: #eee; /* Optional: Light background while image loads */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
   
   /* Styles for the image itself */
@@ -25,14 +24,59 @@
     display: block; /* Removes extra space sometimes added below inline images */
     width: 100%; /* Makes the image fill the width of its container (.photo-item) */
     height: auto; /* Allows the height to adjust automatically to maintain aspect ratio */
-    aspect-ratio: 1 / 1; /* Forces a square aspect ratio. Adjust as needed (e.g., 4 / 3, 16 / 9) */
+    aspect-ratio: 1 / 1; /* Square aspect ratio */
     object-fit: cover; /* Scales the image to maintain aspect ratio while filling the container. Crops if necessary. */
-    transition: transform 0.3s ease; /* Adds a smooth transition effect for hover */
+    transition: transform 0.3s ease;
   }
   
-  /* Styles for the image on hover */
-  .photo-item img:hover {
-    transform: scale(1.05); /* Slightly enlarges the image when the mouse hovers over it */
+  /* Hover effects for larger screens only */
+  @media (hover: hover) and (pointer: fine) {
+    .photo-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+    
+    .photo-item img:hover {
+      transform: scale(1.05);
+    }
+  }
+  
+  /* Mobile and Tablet Responsive Breakpoints */
+  @media (min-width: 480px) {
+    .photo-gallery {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+      padding: 0;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .photo-gallery {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .photo-gallery {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+  }
+  
+  @media (min-width: 1200px) {
+    .photo-gallery {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+  }
+  
+  /* Very small screens optimization */
+  @media (max-width: 360px) {
+    .photo-gallery {
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
   }
   
   /* Optional: Add styles for title/description if you uncomment them in the JSX */

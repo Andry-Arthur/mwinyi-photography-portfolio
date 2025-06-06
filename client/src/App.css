@@ -1,6 +1,20 @@
 /* client/src/App.css */
 .page-content {
-  padding: 2rem; /* Add some space around the page content */
+  padding: 1rem; /* Reduced padding for mobile-first approach */
   max-width: 1200px; /* Optional: Limit content width */
   margin: 0 auto; /* Optional: Center content */
+  flex: 1; /* Allow content to grow and fill space */
+}
+
+/* Desktop and larger screens get more padding */
+@media (min-width: 768px) {
+  .page-content {
+    padding: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .page-content {
+    padding: 2rem 3rem;
+  }
 }
