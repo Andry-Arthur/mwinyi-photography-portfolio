@@ -34,3 +34,4 @@ This project is proprietary software. Usage, reproduction, and distribution are 
 
 * Andry Rakotonjanabelo
 * Salmin Mwinjuma
+* Tejaswi Amatya
